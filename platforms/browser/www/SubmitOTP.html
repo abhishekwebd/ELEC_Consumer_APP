@@ -74,7 +74,7 @@ if(localStorage.getItem("otpcode") == null){
 					<h2>Enter OTP</h2>
 
 					<div class="pom-agile">
-						<span class="fa fa-user-o" aria-hidden="true"></span>
+						<span class="fa fa-undo" aria-hidden="true" ng-click="resend()"></span>
 						<input placeholder="OTP" name="OTP" class="user" maxlength="4" ng-model="otpno" type="text" required="">
 					</div>
 				
@@ -92,9 +92,9 @@ if(localStorage.getItem("otpcode") == null){
 						<div class="right-w3l">
 							<input type="button" value="Verify"  ng-click="Verify()">
 						</div>
-					<!-- 	<div class="forgot-w3l">
-							<a href="#">Forgot Password?</a>
-						</div> -->
+					<div class="forgot-w3l">
+							<a href="login.html"><i class="fa fa-power-off"></i> Login Here</a>
+						</div>
 
 					</div>
 				</div>
@@ -105,21 +105,46 @@ if(localStorage.getItem("otpcode") == null){
 	var app = angular.module('myApp', []);
 	app.controller('RecordCtrl', function ($scope, $http) {
   
+
+    $scope.resend = function () {
+    	var otpcode  = Math.floor(Math.random() * 9999);
+		var msg = "Your New OTP and Password is : "+otpcode+" . You can change your password after login !";
+		 http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+localStorage.getItem("Mobileno")+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c";
+		  $http.get(http)
+            .then(function (response) {
+            	//	alert(response.data[0].msgid);
+            	//$scope.names = response.data.d; 
+            	if(response.data[0].responseCode.includes("SuccessFully")){
+            		localStorage.setItem("otpcode",otpcode);
+             		$scope.error = "OTP Sent!";
+            	}
+            	else
+            	{
+            		$scope.error = response.data[0].responseCode;
+            	}
+            });
+    }
     $scope.Verify = function () {
 	
-		var otpcode = sessionStorage.getItem("otpcode");
+		var otpcode = localStorage.getItem("otpcode");
 		if(otpcode == $scope.otpno)
 		{
-			 q = "exec sp_VerifyMobile '"+sessionStorage.getItem("Mobileno")+"','"+otpcode+"', '"+sessionStorage.getItem("Controlno")+"'";
+		var q = "exec sp_VerifyMobile '"+localStorage.getItem("Mobileno")+"','"+otpcode+"', '"+localStorage.getItem("Controlno")+"'";
 	
 			$http.get(localStorage.getItem("serverpath")+"staffdata.php?Code=execute&q="+q)
             .then(function (response) {
             	$scope.error = response.data.result[0].Msg;
-            	window.setTimeout(function(){
+            	if(response.data.result[0].Code != 0)
+            	{
+            		window.setTimeout(function(){
             		localStorage.setItem("IsVerified",1);
-		            sessionStorage.removeItem("otpcode");
-	      		  window.location.href = "login.html";
-   			 }, 3000);
+            		localStorage.setItem("Code",response.data.result[0].Code);
+		            localStorage.removeItem("otpcode");
+	      		    window.location.href = "home.html";
+   				    }, 3000);
+            	}
+            	
+            	
             });
 			//  $http.get(localStorage.getItem("serverpath")+"staffdata.php?Code=execute&q="+q);
 			

@@ -126,10 +126,10 @@
 									if($scope.mobileno.length === 10)
 									{  
 					      	
-										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c2";
+										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c";
 								 //the REST service Server to fetch the day stock 
 							
-					      		 alert(http);
+					      		 
 					      		 try{
 
 					      		
@@ -140,8 +140,6 @@
 					      		 		cache: false,
 					      		 		success: function(response){
 
-					      		 				alert("Got a response");
-					      		 				alert(response[0].responseCode);
 					      		 			if(response[0].responseCode.includes("SuccessFully")){
 					      		 				localStorage.setItem("otpcode",otpcode);
 					      		 				localStorage.setItem("Mobileno",$scope.mobileno);
@@ -149,13 +147,15 @@
 					      		 			
 					      		 				window.location.href = "SubmitOTP.html";
 					      		 			}
-					      		 			 
-
+					      		 			else
+					      		 			{
+					      		 			 	 $scope.error = "Retry !"; 
+					      		 			     $scope.dsblBtn = false;
+											}
 					      		 		}
 					      		 	});
 					      		 	
-					      		 	 $scope.error = "Retry !"; 
-					      		 	$scope.dsblBtn = false;
+					      		 
  								 // $http.get(http)
 					     //  		  .then(function (response) {
 					     //        	//	alert(response.data[0].msgid);

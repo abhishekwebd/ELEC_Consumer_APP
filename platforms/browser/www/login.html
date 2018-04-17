@@ -126,7 +126,7 @@ if(localStorage.getItem("Code") != null && localStorage.getItem("IsVerified") !=
             			else{
             			localStorage.setItem("Code",response.data.d[0].Code);
             			localStorage.setItem("IsVerified",response.data.d[0].IsVerified);
-            			window.location.href = "Home.html";
+            			window.location.href = "ChangePassword.html";
             			}
             		}else{
             				$scope.error = "Invalid User";

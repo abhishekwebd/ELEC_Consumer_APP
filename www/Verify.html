@@ -108,6 +108,7 @@
 				var app = angular.module('myApp', []);
 				app.controller('RecordCtrl', function ($scope, $http) {
 
+				
 					$scope.send = function () {
 						$scope.dsblBtn = true;
 						$scope.error = "Wait ...";
@@ -140,11 +141,12 @@
 					      		 		cache: false,
 					      		 		success: function(response){
 					      		 			alert(response[0].responseCode);
-					      		 			if(response[0].responseCode.includes("SuccessFully")){
+
+					      		 			if(response[0].responseCode.indexOf("SuccessFully") >= 0){
 					      		 				localStorage.setItem("otpcode",otpcode);
 					      		 				localStorage.setItem("Mobileno",$scope.mobileno);
 					      		 				localStorage.setItem("Controlno",$scope.Controlno);
-					      		 			
+					      		 			alert("in");
 					      		 				window.location.href = "SubmitOTP.html";
 					      		 			}
 					      		 			else
@@ -152,6 +154,19 @@
 					      		 			 	 $scope.error = "Retry !"; 
 					      		 			     $scope.dsblBtn = false;
 											}
+					      // 		 			if(response[0].responseCode.includes("SuccessFully")){
+					      // 		 				localStorage.setItem("otpcode",otpcode);
+					      // 		 				localStorage.setItem("Mobileno",$scope.mobileno);
+					      // 		 				localStorage.setItem("Controlno",$scope.Controlno);
+					      // 		 			alert("in");
+					      // 		 				window.location.href = "SubmitOTP.html";
+					      // 		 			}
+					      // 		 			else
+					      // 		 			{
+					      // 		 			 	 $scope.error = "Retry !"; 
+					      // 		 			     $scope.dsblBtn = false;
+											// }
+
 					      		 		}
 					      		 	});
 					      		 	

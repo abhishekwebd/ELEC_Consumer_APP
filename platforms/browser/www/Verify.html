@@ -140,13 +140,13 @@
 					      		 		crossDomain: true,
 					      		 		cache: false,
 					      		 		success: function(response){
-					      		 			alert(response[0].responseCode);
+					      		 			
 
 					      		 			if(response[0].responseCode.indexOf("SuccessFully") >= 0){
 					      		 				localStorage.setItem("otpcode",otpcode);
 					      		 				localStorage.setItem("Mobileno",$scope.mobileno);
 					      		 				localStorage.setItem("Controlno",$scope.Controlno);
-					      		 			alert("in");
+					      		 			
 					      		 				window.location.href = "SubmitOTP.html";
 					      		 			}
 					      		 			else

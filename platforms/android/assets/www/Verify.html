@@ -109,6 +109,7 @@
 				app.controller('RecordCtrl', function ($scope, $http) {
 
 					$scope.send = function () {
+						$scope.dsblBtn = true;
 
 						var q= "select IsVerified from tblstaffmaster where UserType = 2 and Controlno = '"+$scope.Controlno+"'";
 						$http.get(localStorage.getItem("serverpath")+"staffdata.php?Code=execute&q="+q)
@@ -126,13 +127,13 @@
 									if($scope.mobileno.length === 10)
 									{  
 					      	
-										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c";
+										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c2";
 								 //the REST service Server to fetch the day stock 
 							
 					      		 
 					      		 try{
 
-					      		 	
+					      		 
 					      		 	$.ajax({
 					      		 		type: "GET",
 					      		 		url:http,
@@ -154,6 +155,7 @@
 					      		 	});
 
 					      		 	 $scope.error = "Retry !"; 
+					      		 	
  								 // $http.get(http)
 					     //  		  .then(function (response) {
 					     //        	//	alert(response.data[0].msgid);
@@ -196,7 +198,7 @@
 
 				  });
 
-
+ 				$scope.dsblBtn = false;
 					}
 
 

@@ -111,6 +111,7 @@
 					$scope.send = function () {
 						$scope.dsblBtn = true;
 
+alert("btn disabled");
 						var q= "select IsVerified from tblstaffmaster where UserType = 2 and Controlno = '"+$scope.Controlno+"'";
 						$http.get(localStorage.getItem("serverpath")+"staffdata.php?Code=execute&q="+q)
 						.then(function (response) {
@@ -120,7 +121,7 @@
 								{
 									$scope.dsblBtn = true;
 									$scope.error = "Wait ...";
-							
+							alert("wait...");
 									var otpcode  = Math.floor(Math.random() * 9999);
 								
 									var msg = "Your OTP and Password is : "+otpcode+" . You can change your password after login !";
@@ -133,7 +134,7 @@
 					      		 
 					      		 try{
 
-					      		 
+					      		 alert("ajax start");
 					      		 	$.ajax({
 					      		 		type: "GET",
 					      		 		url:http,
@@ -141,7 +142,8 @@
 					      		 		cache: false,
 					      		 		success: function(response){
 
-
+					      		 				alert("Got a response");
+					      		 				alert(response[0].responseCode);
 					      		 			if(response[0].responseCode.includes("SuccessFully")){
 					      		 				localStorage.setItem("otpcode",otpcode);
 					      		 				localStorage.setItem("Mobileno",$scope.mobileno);
@@ -153,7 +155,7 @@
 
 					      		 		}
 					      		 	});
-
+					      		 	alert("Retry !");
 					      		 	 $scope.error = "Retry !"; 
 					      		 	
  								 // $http.get(http)
@@ -197,7 +199,7 @@
 
 
 				  });
-
+alert("btn enabled");
  				$scope.dsblBtn = false;
 					}
 

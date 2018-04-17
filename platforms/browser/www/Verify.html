@@ -119,7 +119,7 @@
 								{
 									$scope.dsblBtn = true;
 									$scope.error = "Wait ...";
-alert("Wait...");
+								alert("Wait...");
 									var otpcode  = Math.floor(Math.random() * 9999);
 									alert(otpcode);
 									var msg = "Your OTP and Password is : "+otpcode+" . You can change your password after login !";
@@ -130,12 +130,14 @@ alert("Wait...");
 								 //the REST service Server to fetch the day stock 
 								 $scope.dsblBtn = false;
 
-					      		 alert("msgsent");
+					      		 alert(http);
+					      		 try{
 
-					      		  $http.get(http)
+ 								 $http.get(http)
 					      		  .then(function (response) {
 					            	//	alert(response.data[0].msgid);
 					            	//$scope.names = response.data.d; 
+					            	alert(response);
 					            	 alert(response.data[0].responseCode+" | "+otpcode);  
 					            	if(response.data[0].responseCode.includes("SuccessFully")){
 					            		localStorage.setItem("otpcode",otpcode);
@@ -150,6 +152,12 @@ alert("Wait...");
 					            		$scope.dsblBtn = false;
 					            	}
 					            });
+					      		  
+					      		 }
+					      		 catch(e){
+					      		 	alert('An error has occurred: '+e.message)
+					      		 }
+					      		
 
 					      		}
 					      		else{ $scope.error = "Invalid Mobile No!"; $scope.dsblBtn = false;}

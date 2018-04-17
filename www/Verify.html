@@ -110,8 +110,8 @@
 
 					$scope.send = function () {
 						$scope.dsblBtn = true;
-
-alert("btn disabled");
+						$scope.error = "Wait ...";
+					
 						var q= "select IsVerified from tblstaffmaster where UserType = 2 and Controlno = '"+$scope.Controlno+"'";
 						$http.get(localStorage.getItem("serverpath")+"staffdata.php?Code=execute&q="+q)
 						.then(function (response) {
@@ -119,9 +119,7 @@ alert("btn disabled");
 							{
 								if(response.data.result[0].IsVerified === 0)
 								{
-									$scope.dsblBtn = true;
-									$scope.error = "Wait ...";
-							alert("wait...");
+									
 									var otpcode  = Math.floor(Math.random() * 9999);
 								
 									var msg = "Your OTP and Password is : "+otpcode+" . You can change your password after login !";
@@ -131,10 +129,10 @@ alert("btn disabled");
 										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c2";
 								 //the REST service Server to fetch the day stock 
 							
-					      		 
+					      		 alert(http);
 					      		 try{
 
-					      		 alert("ajax start");
+					      		
 					      		 	$.ajax({
 					      		 		type: "GET",
 					      		 		url:http,
@@ -155,9 +153,9 @@ alert("btn disabled");
 
 					      		 		}
 					      		 	});
-					      		 	alert("Retry !");
-					      		 	 $scope.error = "Retry !"; 
 					      		 	
+					      		 	 $scope.error = "Retry !"; 
+					      		 	$scope.dsblBtn = false;
  								 // $http.get(http)
 					     //  		  .then(function (response) {
 					     //        	//	alert(response.data[0].msgid);
@@ -199,8 +197,8 @@ alert("btn disabled");
 
 
 				  });
-alert("btn enabled");
- 				$scope.dsblBtn = false;
+
+ 
 					}
 
 

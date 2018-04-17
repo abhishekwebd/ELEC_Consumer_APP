@@ -126,33 +126,58 @@
 									if($scope.mobileno.length === 10)
 									{  
 					      		 alert("otp to sent");
-										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c";
+										http = "http://bulksms.infinityservices.info/sendSMS?username=minisoftsol&message="+msg+"&sendername=CLWCPH&smstype=TRANS&numbers="+$scope.mobileno+"&apikey=d5660e79-2381-4ef3-bda7-7d48a5f6753c2";
 								 //the REST service Server to fetch the day stock 
-								 $scope.dsblBtn = false;
-
-					      		 alert(http);
+								// $scope.dsblBtn = false;
+									alert(http);
+					      		 
 					      		 try{
 
- 								 $http.get(http)
-					      		  .then(function (response) {
-					            	//	alert(response.data[0].msgid);
-					            	//$scope.names = response.data.d; 
-					            	alert(response);
-					            	 alert(response.data[0].responseCode+" | "+otpcode);  
-					            	if(response.data[0].responseCode.includes("SuccessFully")){
-					            		localStorage.setItem("otpcode",otpcode);
-					            		localStorage.setItem("Mobileno",$scope.mobileno);
-					            		localStorage.setItem("Controlno",$scope.Controlno);
-					            		alert("stored");
-					            		window.location.href = "SubmitOTP.html";
-					            	}
-					            	else
-					            	{
-					            		$scope.error = response.data[0].responseCode;
-					            		$scope.dsblBtn = false;
-					            	}
-					            });
-					      		  
+					      		 	
+					      		 	$.ajax({
+					      		 		type: "GET",
+					      		 		url:http,
+					      		 		crossDomain: true,
+					      		 		cache: false,
+					      		 		success: function(response){
+
+					      		 			  
+					      		 			  alert(response[0].responseCode);
+					      		 			//alert(response.data[0].responseCode+" | "+otpcode); 
+
+					      		 			if(response[0].responseCode.includes("SuccessFully")){
+					      		 				localStorage.setItem("otpcode",otpcode);
+					      		 				localStorage.setItem("Mobileno",$scope.mobileno);
+					      		 				localStorage.setItem("Controlno",$scope.Controlno);
+					      		 				alert("stored");
+					      		 				window.location.href = "SubmitOTP.html";
+					      		 			}
+					      		 			 
+
+					      		 		}
+					      		 	});
+
+					      		 	 $scope.error = "Retry !"; 
+ 								 // $http.get(http)
+					     //  		  .then(function (response) {
+					     //        	//	alert(response.data[0].msgid);
+					     //        	//$scope.names = response.data.d; 
+					     //        	alert(response);
+					     //        	 alert(response.data[0].responseCode+" | "+otpcode);  
+					     //        	if(response.data[0].responseCode.includes("SuccessFully")){
+					     //        		localStorage.setItem("otpcode",otpcode);
+					     //        		localStorage.setItem("Mobileno",$scope.mobileno);
+					     //        		localStorage.setItem("Controlno",$scope.Controlno);
+					     //        		alert("stored");
+					     //        		window.location.href = "SubmitOTP.html";
+					     //        	}
+					     //        	else
+					     //        	{
+					     //        		$scope.error = response.data[0].responseCode;
+					     //        		$scope.dsblBtn = false;
+					     //        	}
+					     //        });
+
 					      		 }
 					      		 catch(e){
 					      		 	alert('An error has occurred: '+e.message)

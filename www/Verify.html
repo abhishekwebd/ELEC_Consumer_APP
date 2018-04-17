@@ -139,7 +139,7 @@
 					      		 		crossDomain: true,
 					      		 		cache: false,
 					      		 		success: function(response){
-
+					      		 			alert(response[0].responseCode);
 					      		 			if(response[0].responseCode.includes("SuccessFully")){
 					      		 				localStorage.setItem("otpcode",otpcode);
 					      		 				localStorage.setItem("Mobileno",$scope.mobileno);

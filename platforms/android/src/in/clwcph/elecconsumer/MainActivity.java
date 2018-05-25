@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ntsoft.democonsumer;
+package in.clwcph.elecconsumer;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
